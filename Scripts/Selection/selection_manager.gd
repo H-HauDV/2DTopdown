@@ -5,15 +5,25 @@ signal primary_selection_changed(primary_character)
 
 @export var controllable_holder_path: NodePath
 @export var roster_panel_path: NodePath
+@export var drag_overlay_path: NodePath
 @export var selection_button: MouseButton = MOUSE_BUTTON_LEFT
 @export var select_radius: float = 18.0
+@export var drag_start_threshold: float = 10.0
 
 var controllable_characters: Array = []
 var selected_characters: Array = []
 var primary_character = null
+var is_dragging := false
+var is_drag_selecting := false
+var drag_started_with_shift := false
+var drag_start_screen := Vector2.ZERO
+var drag_current_screen := Vector2.ZERO
+var drag_start_world := Vector2.ZERO
+var drag_current_world := Vector2.ZERO
 
 @onready var controllable_holder: Node = get_node_or_null(controllable_holder_path)
 @onready var roster_panel: Control = get_node_or_null(roster_panel_path)
+@onready var drag_overlay: Control = get_node_or_null(drag_overlay_path)
 
 func _ready() -> void:
 	refresh_characters()
@@ -88,13 +98,19 @@ func clear_selection() -> void:
 	_emit_selection_signals()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == selection_button and event.pressed:
-		var clicked_character = _get_character_at_position(get_global_mouse_position())
-		if event.shift_pressed:
-			if clicked_character != null:
-				toggle_select(clicked_character)
+	if event is InputEventMouseButton and event.button_index == selection_button:
+		if event.pressed:
+			_begin_drag_selection(event)
 		else:
-			select_one(clicked_character)
+			_finish_drag_selection()
+		return
+
+	if event is InputEventMouseMotion and is_dragging:
+		drag_current_screen = event.position
+		drag_current_world = get_global_mouse_position()
+		if not is_drag_selecting and drag_start_screen.distance_to(drag_current_screen) >= drag_start_threshold:
+			is_drag_selecting = true
+		_update_drag_overlay()
 
 func _get_character_at_position(world_position: Vector2):
 	for index in range(controllable_characters.size() - 1, -1, -1):
@@ -115,6 +131,55 @@ func _clear_selection_state() -> void:
 		if is_instance_valid(character):
 			character.set_selected(false)
 	selected_characters.clear()
+
+func _begin_drag_selection(event: InputEventMouseButton) -> void:
+	is_dragging = true
+	is_drag_selecting = false
+	drag_started_with_shift = event.shift_pressed
+	drag_start_screen = event.position
+	drag_current_screen = event.position
+	drag_start_world = get_global_mouse_position()
+	drag_current_world = drag_start_world
+	_update_drag_overlay()
+
+func _finish_drag_selection() -> void:
+	if not is_dragging:
+		return
+
+	drag_current_world = get_global_mouse_position()
+
+	if is_drag_selecting:
+		var selected_in_box := _get_characters_in_world_rect(_get_drag_world_rect())
+		select_many(selected_in_box, drag_started_with_shift)
+	else:
+		var clicked_character = _get_character_at_position(get_global_mouse_position())
+		if drag_started_with_shift:
+			if clicked_character != null:
+				toggle_select(clicked_character)
+		else:
+			select_one(clicked_character)
+
+	is_dragging = false
+	is_drag_selecting = false
+	_update_drag_overlay()
+
+func _update_drag_overlay() -> void:
+	if drag_overlay != null and drag_overlay.has_method("update_drag_rect"):
+		drag_overlay.update_drag_rect(is_drag_selecting, drag_start_screen, drag_current_screen)
+
+func _get_drag_world_rect() -> Rect2:
+	return Rect2(drag_start_world, drag_current_world - drag_start_world).abs()
+
+func _get_characters_in_world_rect(world_rect: Rect2) -> Array:
+	var characters_in_rect: Array = []
+	for character in controllable_characters:
+		if not is_instance_valid(character):
+			continue
+
+		if world_rect.has_point(character.global_position):
+			characters_in_rect.append(character)
+
+	return characters_in_rect
 
 func _set_primary_character(character) -> void:
 	primary_character = character

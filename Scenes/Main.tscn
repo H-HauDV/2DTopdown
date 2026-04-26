@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Main/main_scene.gd" id="4_iq6nm"]
 [ext_resource type="Script" path="res://Scripts/Selection/selection_manager.gd" id="5_1g70j"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/RosterPanel.tscn" id="6_4nxoi"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/SelectionDragOverlay.tscn" id="7_6ihsn"]
 
 [node name="Main" type="Node2D" unique_id=1154495699]
 script = ExtResource("4_iq6nm")
@@ -31,8 +32,11 @@ display_name = "Survivor 2"
 
 [node name="RosterPanel" parent="CanvasLayer" instance=ExtResource("6_4nxoi")]
 
+[node name="SelectionDragOverlay" parent="CanvasLayer" instance=ExtResource("7_6ihsn")]
+
 [node name="SelectionManager" type="Node2D" parent="."]
 script = ExtResource("5_1g70j")
 controllable_holder_path = NodePath("../PlayerCharacterHolder")
 roster_panel_path = NodePath("../CanvasLayer/RosterPanel")
+drag_overlay_path = NodePath("../CanvasLayer/SelectionDragOverlay")
 groups = ["selection_manager"]
