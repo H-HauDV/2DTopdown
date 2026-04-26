@@ -14,5 +14,10 @@ position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 script = ExtResource("3_oo8jy")
 
-[node name="Player" parent="." unique_id=441022428 instance=ExtResource("1_f56b7")]
-position = Vector2(640, 360)
+[node name="PlayerCharacterHolder" type="Node" parent="." unique_id=1370944058]
+
+[node name="Player" parent="PlayerCharacterHolder" unique_id=441022428 instance=ExtResource("1_f56b7")]
+position = Vector2(773, 360)
+
+[node name="Player2" parent="PlayerCharacterHolder" unique_id=2064887219 instance=ExtResource("1_f56b7")]
+position = Vector2(485, 363)
