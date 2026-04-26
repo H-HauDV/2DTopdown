@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_uq66f"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human.svg" id="2_qd7yr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10krt"]
 size = Vector2(16, 16)
@@ -9,9 +10,9 @@ size = Vector2(16, 16)
 script = ExtResource("1_uq66f")
 z_index = 1
 
-[node name="Body" type="Polygon2D" parent="."]
-color = Color(0.2, 0.8, 0.4, 1)
-polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qd7yr")
+position = Vector2(0, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_10krt")
