@@ -4,15 +4,15 @@
 [ext_resource type="PackedScene" path="res://Scenes/TileMap.tscn" id="2_2s3yt"]
 [ext_resource type="Script" uid="uid://mgx61txkbxxv" path="res://Scripts/camera_controller.gd" id="3_oo8jy"]
 
-[node name="Main" type="Node2D" unique_id=1154495699]
+[node name="Main" type="Node2D" unique_id=251665391]
 
-[node name="TileMap" parent="." unique_id=1203411333 instance=ExtResource("2_2s3yt")]
+[node name="TileMap" parent="." unique_id=529120520 instance=ExtResource("2_2s3yt")]
 
-[node name="WorldCamera" type="Camera2D" parent="." unique_id=976051490]
+[node name="WorldCamera" type="Camera2D" parent="." unique_id=1281137261]
 position = Vector2(640, 360)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 script = ExtResource("3_oo8jy")
 
-[node name="Player" parent="." unique_id=441022428 instance=ExtResource("1_f56b7")]
+[node name="Player" parent="." unique_id=1261302007 instance=ExtResource("1_f56b7")]
 position = Vector2(640, 360)
