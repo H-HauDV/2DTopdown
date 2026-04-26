@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Entities/Humans/Human.tscn" id="1_kc4kc"]
+[ext_resource type="Script" path="res://Scripts/Entities/npc.gd" id="2_n808t"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human.svg" id="3_6coqt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7x3tg"]
+size = Vector2(16, 16)
+
+[node name="NPC" instance=ExtResource("1_kc4kc")]
+script = ExtResource("2_n808t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.75, 0.75, 1)
+texture = ExtResource("3_6coqt")
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7x3tg")

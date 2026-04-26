@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dopavpurjar4v"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Player.tscn" id="1_f56b7"]
+[ext_resource type="PackedScene" path="res://Scenes/Entities/Humans/PlayerCharacter.tscn" id="1_f56b7"]
 [ext_resource type="PackedScene" path="res://Scenes/TileMap.tscn" id="2_2s3yt"]
 [ext_resource type="Script" uid="uid://mgx61txkbxxv" path="res://Scripts/camera_controller.gd" id="3_oo8jy"]
 
