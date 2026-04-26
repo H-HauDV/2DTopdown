@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="PackedScene" path="res://Scenes/Entities/Humans/Human.tscn" id="1_k8c5k"]
 [ext_resource type="Script" path="res://Scripts/Entities/player_character.gd" id="2_8701r"]
-[ext_resource type="Texture2D" path="res://Assets/Characters/player_human.svg" id="3_4yv4u"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_down.svg" id="3_4yv4u"]
 [ext_resource type="PackedScene" path="res://Scenes/Components/MovementComponent.tscn" id="4_kld6h"]
 [ext_resource type="PackedScene" path="res://Scenes/Components/InputMoveComponent.tscn" id="5_iwf7t"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_up.svg" id="6_c7haa"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_left.svg" id="7_1m3rw"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_right.svg" id="8_xol9b"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/DirectionalVisualComponent.tscn" id="9_kf23a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10krt"]
 size = Vector2(16, 16)
@@ -30,3 +34,9 @@ shape = SubResource("RectangleShape2D_10krt")
 [node name="MovementComponent" parent="Components" instance=ExtResource("4_kld6h")]
 
 [node name="InputMoveComponent" parent="Components" instance=ExtResource("5_iwf7t")]
+
+[node name="DirectionalVisualComponent" parent="Components" instance=ExtResource("9_kf23a")]
+down_texture = ExtResource("3_4yv4u")
+up_texture = ExtResource("6_c7haa")
+left_texture = ExtResource("7_1m3rw")
+right_texture = ExtResource("8_xol9b")
