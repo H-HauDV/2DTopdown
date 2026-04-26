@@ -3,8 +3,12 @@
 [ext_resource type="PackedScene" path="res://Scenes/Entities/Humans/PlayerCharacter.tscn" id="1_f56b7"]
 [ext_resource type="PackedScene" path="res://Scenes/TileMap.tscn" id="2_2s3yt"]
 [ext_resource type="Script" uid="uid://mgx61txkbxxv" path="res://Scripts/camera_controller.gd" id="3_oo8jy"]
+[ext_resource type="Script" path="res://Scripts/Main/main_scene.gd" id="4_iq6nm"]
+[ext_resource type="Script" path="res://Scripts/Selection/selection_manager.gd" id="5_1g70j"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/RosterPanel.tscn" id="6_4nxoi"]
 
 [node name="Main" type="Node2D" unique_id=1154495699]
+script = ExtResource("4_iq6nm")
 
 [node name="TileMap" parent="." unique_id=1203411333 instance=ExtResource("2_2s3yt")]
 
@@ -21,3 +25,14 @@ position = Vector2(773, 360)
 
 [node name="Player2" parent="PlayerCharacterHolder" unique_id=2064887219 instance=ExtResource("1_f56b7")]
 position = Vector2(485, 363)
+display_name = "Survivor 2"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RosterPanel" parent="CanvasLayer" instance=ExtResource("6_4nxoi")]
+
+[node name="SelectionManager" type="Node2D" parent="."]
+script = ExtResource("5_1g70j")
+controllable_holder_path = NodePath("../PlayerCharacterHolder")
+roster_panel_path = NodePath("../CanvasLayer/RosterPanel")
+groups = ["selection_manager"]

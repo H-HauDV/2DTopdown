@@ -9,12 +9,20 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10krt"]
 size = Vector2(16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7j5m1"]
+radius = 12.0
+
 [node name="PlayerCharacter" instance=ExtResource("1_k8c5k")]
 script = ExtResource("2_8701r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_4yv4u")
 position = Vector2(0, -4)
+
+[node name="SelectionRing" type="Polygon2D" parent="."]
+position = Vector2(0, 10)
+color = Color(0.4, 1, 0.55, 0.9)
+polygon = PackedVector2Array(-12, 0, -10, -4, -4, -7, 4, -7, 10, -4, 12, 0, 10, 4, 4, 7, -4, 7, -10, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_10krt")

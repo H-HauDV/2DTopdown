@@ -1,8 +1,12 @@
 extends CharacterBody2D
 class_name BaseEntity
 
+@export var accepts_player_input: bool = true
+
 @onready var component_manager = $ComponentManager
 @onready var components_root: Node = $Components
+
+var is_selected: bool = false
 
 func _ready() -> void:
 	component_manager.setup(self)
@@ -12,6 +16,9 @@ func _ready() -> void:
 			component_manager.register_component(child)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if accepts_player_input and not is_selected:
+		return
+
 	component_manager.forward_unhandled_input(event)
 
 func _physics_process(delta: float) -> void:
@@ -31,3 +38,9 @@ func get_component(key: StringName):
 
 func has_component(key: StringName) -> bool:
 	return component_manager.has_component(key)
+
+func set_selected(value: bool) -> void:
+	is_selected = value
+
+func get_is_selected() -> bool:
+	return is_selected

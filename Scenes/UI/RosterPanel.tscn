@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/UI/roster_panel.gd" id="1_1ugtx"]
+
+[node name="RosterPanel" type="PanelContainer"]
+anchors_preset = 3
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -160.0
+offset_right = 236.0
+offset_bottom = -16.0
+grow_vertical = 0
+script = ExtResource("1_1ugtx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+text = "Squad"
+
+[node name="CharacterList" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+size_flags_vertical = 3

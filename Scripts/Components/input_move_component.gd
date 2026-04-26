@@ -14,4 +14,11 @@ func component_unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton and event.button_index == click_button and event.pressed:
-		movement_component.set_target(entity.get_global_mouse_position())
+		var selection_manager = entity.get_tree().get_first_node_in_group("selection_manager")
+		if selection_manager == null:
+			movement_component.set_target(entity.get_global_mouse_position())
+			return
+
+		var selected_characters: Array = selection_manager.get_selected_characters()
+		if selected_characters.has(entity):
+			movement_component.set_target(entity.get_global_mouse_position())
