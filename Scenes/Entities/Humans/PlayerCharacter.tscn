@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="PackedScene" path="res://Scenes/Entities/Humans/Human.tscn" id="1_k8c5k"]
 [ext_resource type="Script" path="res://Scripts/Entities/player_character.gd" id="2_8701r"]
@@ -9,6 +9,14 @@
 [ext_resource type="Texture2D" path="res://Assets/Characters/player_human_left.svg" id="7_1m3rw"]
 [ext_resource type="Texture2D" path="res://Assets/Characters/player_human_right.svg" id="8_xol9b"]
 [ext_resource type="PackedScene" path="res://Scenes/Components/DirectionalVisualComponent.tscn" id="9_kf23a"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_down_walk_1.svg" id="10_0p51a"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_down_walk_2.svg" id="11_71164"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_up_walk_1.svg" id="12_bxgpu"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_up_walk_2.svg" id="13_x7n8b"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_left_walk_1.svg" id="14_q6c76"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_left_walk_2.svg" id="15_5m5mn"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_right_walk_1.svg" id="16_v1jjm"]
+[ext_resource type="Texture2D" path="res://Assets/Characters/player_human_right_walk_2.svg" id="17_ymkct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10krt"]
 size = Vector2(16, 16)
@@ -16,11 +24,92 @@ size = Vector2(16, 16)
 [sub_resource type="CircleShape2D" id="CircleShape2D_7j5m1"]
 radius = 12.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_t03gl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4yv4u")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_c7haa")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_1m3rw")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_xol9b")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_0p51a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_71164")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_bxgpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_x7n8b")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_q6c76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_5m5mn")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_v1jjm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ymkct")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 6.0
+}]
+
 [node name="PlayerCharacter" instance=ExtResource("1_k8c5k")]
 script = ExtResource("2_8701r")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_4yv4u")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t03gl")
+animation = &"idle_down"
+frame_progress = 1.0
 position = Vector2(0, -4)
 
 [node name="SelectionRing" type="Polygon2D" parent="."]
@@ -36,7 +125,3 @@ shape = SubResource("RectangleShape2D_10krt")
 [node name="InputMoveComponent" parent="Components" instance=ExtResource("5_iwf7t")]
 
 [node name="DirectionalVisualComponent" parent="Components" instance=ExtResource("9_kf23a")]
-down_texture = ExtResource("3_4yv4u")
-up_texture = ExtResource("6_c7haa")
-left_texture = ExtResource("7_1m3rw")
-right_texture = ExtResource("8_xol9b")
